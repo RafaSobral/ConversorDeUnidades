@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamanho</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="conteiner">
+        <h1>Conversor de Unidades</h1>
+        <div class="conteinerh2">
+            <a href="" class="Tamanho">Tamanho</a>
+            <a href="/peso/" class="a">Peso</a>
+            <a href="/temperatura/" class="a">Temperatura</a>
+        </div>
+        <div class="conteinerform">
+            <form action="" method="POST">{% csrf_token %}
+                <h2>Insira o tamanho para conversão</h2>
+                <input type="text" name="tamanho" placeholder="   Insira o tamanho para conversão:">
+                <h2>Unidade a ser convertida</h2>
+                <select name="unidade1">
+                    <option value="metro">Metro</option>
+                    <option value="quilometro">Quilômetro</option>
+                    <option value="milha">Milha</option>
+                    <option value="centimetro">Centímetro</option>
+                  </select>
+                <h2>Unidade para a qual converter</h2>
+                <select name="unidade2">
+                    <option value="metro">Metro</option>
+                    <option value="quilometro">Quilômetro</option>
+                    <option value="milha">Milha</option>
+                    <option value="centimetro">Centímetro</option>
+                  </select>
+                <button type="submit">Converter</button>
+                {% if valor_convertido %}
+                    <h3>Resultado:</h3>
+                    <p>{{ valor_convertido }} {{ un2 }}</p>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</body>
+</html>

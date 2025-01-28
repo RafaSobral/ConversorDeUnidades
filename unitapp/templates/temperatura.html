@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperatura</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="conteiner">
+        <h1>Conversor de Unidades</h1>
+        <div class="conteinerh2">
+            <a href="/" class="a">Tamanho</a>
+            <a href="/peso/" class="a">Peso</a>
+            <a href="/temperatura/" class="Temperatura">Temperatura</a>
+        </div>
+        <div class="conteinerform">
+            <form action="" method="POST">{% csrf_token %}
+                <h2>Insira a temperatura para conversão</h2>
+                <input type="text" name="temperatura" placeholder="   Insira o temperatura para conversão:">
+                <h2>Unidade a ser convertida</h2>
+                <select>
+                    <option value="C">Celsius (°C)</option>
+                    <option value="D">Fahrenheit (°F)</option>
+                    <option value="K">Kelvin (K)</option>
+                    <option value="R">Rankine (°R)</option>
+                </select>
+                <h2>Unidade para a qual converter</h2>
+                <select>
+                    <option value="C">Celsius (°C)</option>
+                    <option value="F">Fahrenheit (°F)</option>
+                    <option value="K">Kelvin (K)</option>
+                    <option value="R">Rankine (°R)</option>
+                </select>
+                <button type="submit">Converter</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
