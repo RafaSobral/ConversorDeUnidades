@@ -1,3 +1,4 @@
+
 /* estilizacao pagina de tamanho */
 
 body{
@@ -121,4 +122,20 @@ button:active{
     flex-direction: row;
     font-size: 25px;
     color: lightblue;
+}
+
+
+/* estilizacao do formulario de resposta */
+
+#resultado {
+    display: none;  
+    color: #fff; 
+    font-size: 20px; 
+    font-weight: bold; 
+    padding: 20px; 
+    border-radius: 10px; 
+    width: 80%; 
+    transition: all 0.3s ease-in-out; 
+    font-family: 'Raleway', sans-serif;
+
 }

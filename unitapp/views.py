@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import JsonResponse
 
 # Create your views here.
 
 def tamanho(request):
     if request.method == "POST":
+        print(request.POST) 
         valor = float(request.POST.get('tamanho'))
         un1 = request.POST.get('unidade1')
         un2 = request.POST.get("unidade2")
@@ -12,19 +13,20 @@ def tamanho(request):
             unidades = {
                 'metro': 1,
                 'quilometro': 1000,
-                'milha': 1509.34,
+                'milha': 1609.34,
                 'centimetro': 0.01
             }
             valor_metro = valor * unidades[un1]
             valor_convertido = valor_metro / unidades[un2]
             return valor_convertido
         valor_convertido = converter_unidade(valor, un1, un2)
-        return render(request, 'tamanho.html', {'valor_convertido': valor_convertido, 'un2': un2})
+        return JsonResponse({'valor_original': valor,'unidade_original': un1,'valor_convertido': valor_convertido,'unidade_convertida': un2})
 
     return render(request, 'tamanho.html')
 
 def peso(request):
     if request.method == "POST":
+        print(request.POST) 
         valor = float(request.POST.get('peso'))
         un1 = request.POST.get('unidade1')
         un2 = request.POST.get("unidade2")
@@ -35,11 +37,11 @@ def peso(request):
                 'lb': 2.20462, 
                 'oz': 35.274   
             }
-            valor_metro = valor * unidades[un1]
-            valor_convertido = valor_metro / unidades[un2]
+            valor_peso = valor * unidades[un1]
+            valor_convertido = valor_peso / unidades[un2]
             return valor_convertido
         valor_convertido = converter_unidade(valor, un1, un2)
-        return render(request, 'peso.html', {'valor_convertido': valor_convertido, 'un2': un2})
+        return JsonResponse({'valor_original': valor,'unidade_original': un1,'valor_convertido': valor_convertido,'unidade_convertida': un2})
 
     return render(request, 'peso.html')
 
@@ -92,7 +94,7 @@ def temperatura(request):
             return valor  
 
         valor_convertido = converter_temperatura(valor, un1, un2)
-        return render(request, 'temperatura.html', {'valor_convertido': valor_convertido, 'un2': un2})
+        return JsonResponse({'valor_original': valor,'unidade_original': un1,'valor_convertido': valor_convertido,'unidade_convertida': un2})
 
     return render(request, 'temperatura.html')
 

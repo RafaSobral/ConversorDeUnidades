@@ -6,6 +6,7 @@
     <title>Peso</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static '/js/script.js' %}" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
@@ -18,18 +19,18 @@
             <a href="/temperatura/" class="a">Temperatura</a>
         </div>
         <div class="conteinerform">
-            <form action="" method="POST">{% csrf_token %}
+            <form action="" method="POST" id="form-conversao">{% csrf_token %}
                 <h2>Insira o peso para conversão</h2>
                 <input type="text" name="peso" placeholder="   Insira o peso para conversão:">
                 <h2>Unidade a ser convertida</h2>
-                <select>
+                <select name="unidade1">
                     <option value="kg">Quilograma (kg)</option>
                     <option value="g">Grama (g)</option>
                     <option value="lb">Libra (lb)</option>
                     <option value="oz">Onça (oz)</option>
                 </select>
                 <h2>Unidade para a qual converter</h2>
-                <select>
+                <select name="unidade2">
                     <option value="kg">Quilograma (kg)</option>
                     <option value="g">Grama (g)</option>
                     <option value="lb">Libra (lb)</option>
@@ -38,6 +39,40 @@
                 <button type="submit">Converter</button>
             </form>
         </div>
+        <div id="resultado" style="display: none;">
+            <p id="resultado-texto"></p>
+            <a href="/peso/"><button>Voltar</button></a>
+        </div>
+        <script>
+            document.getElementById("form-conversao").onsubmit = function(event) {
+                event.preventDefault();  // Impede o envio tradicional do formulário
+                
+                // Captura os valores dos inputs
+                const formData = new FormData(document.getElementById("form-conversao"));
+            
+                // Envia os dados para o backend via AJAX (fetch)
+                fetch("{% url 'peso' %}", {
+                    method: "POST",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"  // Indica uma requisição AJAX
+                    },
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert("Erro: " + data.error);
+                        return;
+                    }
+            
+                    // Esconde os inputs e exibe o resultado
+                    document.querySelector(".conteinerform").style.display = "none"; // Esconde o formulário
+                    document.getElementById("resultado-texto").textContent = `${data.valor_original} ${data.unidade_original} = ${data.valor_convertido} ${data.unidade_convertida}`;
+                    document.getElementById("resultado").style.display = "block";
+                })
+                .catch(error => console.log("Erro ao fazer a requisição:", error));
+            };
+            </script>
     </div>
 </body>
 </html>
