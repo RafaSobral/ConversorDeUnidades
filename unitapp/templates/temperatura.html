@@ -40,21 +40,18 @@
             </form>
         </div>
         <div id="resultado" style="display: none;">
+            <h2> Resultado do seu Calculo: </h2>
             <p id="resultado-texto"></p>
             <a href="/temperatura/"><button>Voltar</button></a>
         </div>
         <script>
             document.getElementById("form-conversao").onsubmit = function(event) {
-                event.preventDefault();  // Impede o envio tradicional do formulário
-                
-                // Captura os valores dos inputs
+                event.preventDefault();  
                 const formData = new FormData(document.getElementById("form-conversao"));
-            
-                // Envia os dados para o backend via AJAX (fetch)
                 fetch("{% url 'temperatura' %}", {
                     method: "POST",
                     headers: {
-                        "X-Requested-With": "XMLHttpRequest"  // Indica uma requisição AJAX
+                        "X-Requested-With": "XMLHttpRequest"  
                     },
                     body: formData,
                 })
@@ -64,9 +61,7 @@
                         alert("Erro: " + data.error);
                         return;
                     }
-            
-                    // Esconde os inputs e exibe o resultado
-                    document.querySelector(".conteinerform").style.display = "none"; // Esconde o formulário
+                    document.querySelector(".conteinerform").style.display = "none"; 
                     document.getElementById("resultado-texto").textContent = `${data.valor_original} ${data.unidade_original} = ${data.valor_convertido} ${data.unidade_convertida}`;
                     document.getElementById("resultado").style.display = "block";
                 })
